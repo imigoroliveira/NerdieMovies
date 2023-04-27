@@ -19,10 +19,10 @@ export default function Header() {
                         <Link className="nav-link" to='/'>Home</Link>
                     </li>
                     <li class="nav-item">
-                    <li> <Link className="nav-link" to='/planos'>Planos</Link> </li>
+                        <Link className="nav-link" to='/planos'>Planos</Link>
                     </li>
                     <li class="nav-item">
-                    <li> <Link className="nav-link" to='/sobre/meunome'>Sobre</Link> </li>
+                        <Link className="nav-link" to='/sobre/meunome'>Sobre</Link>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
