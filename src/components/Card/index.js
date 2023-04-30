@@ -1,5 +1,6 @@
 import "./card.css";
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function Assitido({ javisto }) {
   if (javisto) {
@@ -10,20 +11,21 @@ function Assitido({ javisto }) {
 
 
 export default function Card() {
-  const [allMovies, setAllMovies] = useState([]);
   const [movies, setMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState([]);
+  const [sortType, setSortType] = useState("");
+
 
   useEffect(() => {
     fetch('https://my-json-server.typicode.com/marycamila184/movies/movies')
       .then(response => response.json())
       .then(data => {
-        const moviesWithIds = data.map((movie, index) => ({ ...movie, id: index }));
-        setAllMovies(moviesWithIds);
-        setMovies(moviesWithIds);
+        setAllMovies(data);
+        setMovies(data);
       });
   }, []);
 
-  const handleSearch = (event) => {
+  const pesquisarFilme = (event) => {
     const query = event.target.value.toLowerCase();
     const filteredMovies = allMovies.filter((movie) => {
       return (
@@ -35,6 +37,24 @@ export default function Card() {
     setMovies(filteredMovies);
   }
 
+  const ordenarFilme = (event) => {
+    const sortType = event.target.value;
+    setSortType(sortType);
+    ordenar(sortType);
+  }
+
+  const ordenar = (type) => {
+    const filmeFiltrado = [...movies].sort((a, b) => {
+      if (type === "name") {
+        return a.titulo.localeCompare(b.titulo);
+      } else if (type === "watched") {
+        return a.assistido === b.assistido ? 0 : a.assistido ? -1 : 1;
+      }
+      return 0;
+    });
+    setMovies(filmeFiltrado);
+  }
+
   return (
     <div className="container text-center">
       <div className="row">
@@ -43,8 +63,17 @@ export default function Card() {
             type="text" 
             className="form-control mb-4" 
             placeholder="Pesquisar filmes"
-            onChange={handleSearch}
+            onChange={pesquisarFilme}
           />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-3 mb-4">
+          <select className="form-select" value={sortType} onChange={ordenarFilme}>
+            <option value="">Ordenar por</option>
+            <option value="name">Nome</option>
+            <option value="watched">Assistido</option>
+          </select>
         </div>
       </div>
       <div className="row movie-row" style={{flexWrap: "wrap"}}>
@@ -55,11 +84,11 @@ export default function Card() {
               <div className="card-body">
                 <h5 className="card-title">{movie.titulo} ({movie.ano}) </h5>
                 <p className="card-text">{movie.descricao ? movie.descricao.substring(0, 120) + "..." : ""}</p>
-                <a href={`/detalhes/${movie.id}`}>
+                <Link to={`/detalhes/${movie.id}`}>
                   <div className="btn btn-primary">
                     Detalhes
                   </div>
-                </a>
+                </Link>
                 <Assitido javisto={movie.assistido}></Assitido>
               </div>
             </div>

@@ -30,7 +30,7 @@ export default function Header() {
                         <button type="button" class="btn btn-outline-primary me-2">Login</button>
                     </li>
                     <li class="nav-item">
-                        <button type="button" class="btn btn-primary">Cadastrar</button>
+                    <Link className="btn btn-primary " to='/cadastro'>Cadastro</Link>
                     </li>
                 </ul>
             </div>
