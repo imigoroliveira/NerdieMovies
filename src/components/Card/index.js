@@ -2,12 +2,6 @@ import "./card.css";
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function Assitido({ javisto }) {
-  if (javisto) {
-    return <p>Assistido ✔</p>;
-  }
-  return <p className="item">Não assistido</p>;
-}
 
 
 export default function Card() {
@@ -31,14 +25,14 @@ export default function Card() {
   //Funcao pra pesquisar os filmes e mudar dinamicamente a organizacao dos cards rederizados
   const pesquisarFilme = (event) => {
     const query = event.target.value.toLowerCase();
-    const filteredMovies = allMovies.filter((movie) => {
+    const filtMovies = allMovies.filter((movie) => {
       return (
         (movie.titulo && movie.titulo.toLowerCase().includes(query)) ||
         (movie.ano && movie.ano.toString().includes(query)) ||
         (movie.descricao && movie.descricao.toLowerCase().includes(query))
       );
     });
-    setMovies(filteredMovies);
+    setMovies(filtMovies);
   }
 
   //Funcao chamada que recebe o evento de ordenacao do select de ordenacao e chama a funcao pra de fato ordenar
@@ -85,8 +79,8 @@ export default function Card() {
           />
         </div>
       </div>
-      <div className="row">
-        <div className="col-3 mb-4">
+      <div className="row justify-content-end mb-4">
+        <div className="col-3">
           <select className="form-select" value={sortType} onChange={ordenarFilme}>
             <option value="title">Título</option>
             <option value="year">Ano</option>
@@ -103,11 +97,15 @@ export default function Card() {
                 <h5 className="card-title">{movie.titulo} ({movie.ano}) </h5>
                 <p className="card-text">{movie.descricao ? movie.descricao.substring(0, 120) + "..." : ""}</p>
                 <Link to={`/detalhes/${movie.id}`}>
-                  <div className="btn btn-primary">
+                  <div className="btn linkBtn btn-primary btn-block">
                     Detalhes
                   </div>
                 </Link>
-                <Assitido javisto={movie.assistido}></Assitido>
+                <a href={`https://www.google.com/search?q=assistir ${movie.titulo} dublado`} target="_BLANK">
+                  <button className="btn linkBtn btn-secondary">
+                    {movie.assistido ? "Assistir novamente" : "Assistir"}
+                  </button>
+                </a>
               </div>
             </div>
           </div>

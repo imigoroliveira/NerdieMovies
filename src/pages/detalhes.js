@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Title from './../components/Title/index';
+import Comments from '../components/Comments';
+import Button from './../components/Button'
 
-function Assitido({ javisto }) {
-  if (javisto) {
-    return <p>Assistido ✔</p>;
-  }
-  return <p className="item">Não assistido</p>;
-}
 
 function Detalhes() {
   const  pathId  = useParams();
@@ -38,18 +33,15 @@ function Detalhes() {
                         <div>
                             <img src={movie.poster} style={{ width: "50%" }} alt={movie.nome} className="card-img-top" />
                         </div>
-
                     </div>
                     <div class="col">
                         <div className="card-body">
-                            <h5 className="card-title">{movie.titulo} ({movie.ano}) </h5>
+                            <h5 className="card-title">{movie.titulo}</h5>
                             <p className="card-text">Ano de Lancamento: {movie.ano}</p>
+                            <p className="card-text">Nota: {movie.nota}</p>
                             <p className="card-text">Sinopse:  {movie.sinopse}</p>
-                            <Assitido javisto={movie.assistido}></Assitido>
-                            <a href={`https://www.youtube.com/results?search_query=${movie.titulo}`} target="_BLANK">
-                                <div className="btn btn-primary">
-                                    Ver Trailer
-                                </div>
+                            <a href={`https://www.google.com/search?q=assistir ${movie.titulo} dublado`} target="_BLANK">
+                            <Button label="Assistir"  variant="primary" />
                             </a>
                         </div>
                     </div>
@@ -57,6 +49,8 @@ function Detalhes() {
             </div>
         </div>
     </div>
+    <Comments/>
+
 </div> 
     );
 }
