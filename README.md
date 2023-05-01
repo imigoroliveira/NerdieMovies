@@ -1,3 +1,6 @@
+#Igor Oliveira - RGM: 12861324
+#Gustavo Soares - RGM: 27025985
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
