@@ -13,18 +13,22 @@ function Assitido({ javisto }) {
 export default function Card() {
   const [movies, setMovies] = useState([]);
   const [allMovies, setAllMovies] = useState([]);
-  const [sortType, setSortType] = useState("");
+  const [sortType, setSortType] = useState("titleYearRating");
 
-
+  //** useEffect utilizado para carregar da api os filmes e depois formata o retorno pra json 
+  //* e apos isso guarda os dados dos filmes no state das variaveis todos os filmes e filmes, depois o sort ordena os filmes em ordem alfabetica 
   useEffect(() => {
     fetch('https://my-json-server.typicode.com/marycamila184/movies/movies')
       .then(response => response.json())
       .then(data => {
         setAllMovies(data);
-        setMovies(data);
+        const sortedMovies = [...data].sort((a, b) => a.titulo.localeCompare(b.titulo));
+        setMovies(sortedMovies);
       });
   }, []);
 
+
+  //Funcao pra pesquisar os filmes e mudar dinamicamente a organizacao dos cards rederizados
   const pesquisarFilme = (event) => {
     const query = event.target.value.toLowerCase();
     const filteredMovies = allMovies.filter((movie) => {
@@ -37,24 +41,38 @@ export default function Card() {
     setMovies(filteredMovies);
   }
 
+  //Funcao chamada que recebe o evento de ordenacao do select de ordenacao e chama a funcao pra de fato ordenar
   const ordenarFilme = (event) => {
     const sortType = event.target.value;
     setSortType(sortType);
     ordenar(sortType);
-  }
-
+  };
+  
+  //Funcao pra ordenar por titulo, ano e note todos em ordem alfabetica/crescente
   const ordenar = (type) => {
     const filmeFiltrado = [...movies].sort((a, b) => {
-      if (type === "name") {
+      if (type === "title") {
         return a.titulo.localeCompare(b.titulo);
-      } else if (type === "watched") {
-        return a.assistido === b.assistido ? 0 : a.assistido ? -1 : 1;
+      } else if (type === "rating") {
+        return a.nota - b.nota;
+      } else if (type === "year") {
+        return a.ano - b.ano;
+      } else {
+        const compareTitle = a.titulo.localeCompare(b.titulo);
+        if (compareTitle !== 0) {
+          return compareTitle;
+        }
+        const compareYear = b.ano - a.ano;
+        if (compareYear !== 0) {
+          return compareYear;
+        }
+        return b.nota - a.nota;
       }
-      return 0;
     });
     setMovies(filmeFiltrado);
-  }
+  };
 
+  //Template do componente
   return (
     <div className="container text-center">
       <div className="row">
@@ -70,9 +88,9 @@ export default function Card() {
       <div className="row">
         <div className="col-3 mb-4">
           <select className="form-select" value={sortType} onChange={ordenarFilme}>
-            <option value="">Ordenar por</option>
-            <option value="name">Nome</option>
-            <option value="watched">Assistido</option>
+            <option value="title">Título</option>
+            <option value="year">Ano</option>
+            <option value="rating">Nota</option>
           </select>
         </div>
       </div>

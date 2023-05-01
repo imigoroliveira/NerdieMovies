@@ -44,8 +44,7 @@ function Detalhes() {
                         <div className="card-body">
                             <h5 className="card-title">{movie.titulo} ({movie.ano}) </h5>
                             <p className="card-text">Ano de Lancamento: {movie.ano}</p>
-                            <p className="card-text">Nota: {movie.nota}</p>
-                            <p className="card-text">Genero: {movie.genero}</p>
+                            <p className="card-text">Sinopse:  {movie.sinopse}</p>
                             <Assitido javisto={movie.assistido}></Assitido>
                             <a href={`https://www.youtube.com/results?search_query=${movie.titulo}`} target="_BLANK">
                                 <div className="btn btn-primary">

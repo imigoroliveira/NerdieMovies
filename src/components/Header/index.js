@@ -27,9 +27,6 @@ export default function Header() {
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-                    </li>
-                    <li class="nav-item">
                     <Link className="btn btn-primary " to='/cadastro'>Cadastro</Link>
                     </li>
                 </ul>
