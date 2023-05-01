@@ -38,7 +38,7 @@ function Detalhes() {
                         <div className="card-body">
                             <h5 className="card-title">{movie.titulo}</h5>
                             <p className="card-text">Ano de Lancamento: {movie.ano}</p>
-                            <p className="card-text">Nota: {movie.nota}</p>
+                            <p className="card-text">Nota: nao existe nota no endpoint de listagem por id   {movie.nota}</p>
                             <p className="card-text">Sinopse:  {movie.sinopse}</p>
                             <a href={`https://www.google.com/search?q=assistir ${movie.titulo} dublado`} target="_BLANK">
                             <Button label="Assistir"  variant="primary" />
