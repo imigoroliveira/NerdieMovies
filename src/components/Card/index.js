@@ -1,8 +1,7 @@
 import "./card.css";
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-
+import WachtedButton from "../WachtedButton";
 
 export default function Card() {
   const [movies, setMovies] = useState([]);
@@ -102,9 +101,7 @@ export default function Card() {
                   </div>
                 </Link>
                 <a href={`https://www.google.com/search?q=assistir ${movie.titulo} dublado`} target="_BLANK">
-                  <button className="btn linkBtn btn-secondary">
-                    {movie.assistido ? "Assistir novamente" : "Assistir"}
-                  </button>
+                 <WachtedButton assistido={movie.assistido} ></WachtedButton>
                 </a>
               </div>
             </div>
