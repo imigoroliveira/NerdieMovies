@@ -2,6 +2,7 @@ import "./card.css";
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import WachtedButton from "../WachtedButton";
+import SearchInput from "../SearchInput";
 
 export default function Card() {
   const [movies, setMovies] = useState([]);
@@ -20,19 +21,10 @@ export default function Card() {
       });
   }, []);
 
-
-  //Funcao pra pesquisar os filmes e mudar dinamicamente a organizacao dos cards rederizados
-  const pesquisarFilme = (event) => {
-    const query = event.target.value.toLowerCase();
-    const filtMovies = allMovies.filter((movie) => {
-      return (
-        (movie.titulo && movie.titulo.toLowerCase().includes(query)) ||
-        (movie.ano && movie.ano.toString().includes(query)) ||
-        (movie.descricao && movie.descricao.toLowerCase().includes(query))
-      );
-    });
-    setMovies(filtMovies);
-  }
+  //Funcao para atualizar o estado dos filmes de acordo com o pesquisado no componente SearchInput
+  const updateMovies = (filteredMovies) => {
+    setMovies(filteredMovies);
+  };
 
   //Funcao chamada que recebe o evento de ordenacao do select de ordenacao e chama a funcao pra de fato ordenar
   const ordenarFilme = (event) => {
@@ -68,16 +60,7 @@ export default function Card() {
   //Template do componente
   return (
     <div className="container text-center">
-      <div className="row">
-        <div className="col">
-          <input 
-            type="text" 
-            className="form-control mb-4" 
-            placeholder="Pesquisar filmes"
-            onChange={pesquisarFilme}
-          />
-        </div>
-      </div>
+    <SearchInput allMovies={allMovies} updateMovies={updateMovies} />
       <div className="row justify-content-end mb-4">
         <div className="col-3">
           <select className="form-select" value={sortType} onChange={ordenarFilme}>

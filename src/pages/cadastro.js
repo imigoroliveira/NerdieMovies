@@ -80,9 +80,8 @@ function Cadastro() {
             </div>
             <div className="mb-2">
               <label htmlFor="telefone" className="form-label">Telefone</label>
-              <input type="text" className="form-control" id="telefone" value={telefone} onChange={validaTelefone} />
+              <input type="text" className="form-control"  id="telefone" value={telefone} onChange={validaTelefone} />
             </div>
-
             <h4 className='mt-5'>Plano escolhido:</h4>
             <div className="row mt-1">
               <div className="col">
@@ -117,8 +116,8 @@ function Cadastro() {
               <input type="text" className="form-control" id="numeroCartao" value={numeroCartao}  onChange={validaNumero} required />
             </div>
             <div className="mb-2">
-              <label htmlFor="cvcCartao" className="form-label">CVC do Cartão</label>
-              <input type="text" className="form-control" id="cvcCartao" value={cvcCartao} onChange={validaCvc} required />
+              <label htmlFor="cvc" className="form-label">CVC</label>
+              <input type="password" className="form-control" id="cvc" value={cvcCartao} onChange={validaCvc} />
             </div>
             <button className="btn btn-primary btn-lg mt-5" style={{ borderRadius: "10px", fontWeight: "bold" }} onClick={handleSubmit}>Assinar</button>
           </form>
@@ -137,7 +136,7 @@ function Cadastro() {
         <p><b>Plano Selecionado: </b> {planoSelecionado}</p>
         <p><b>Nome do Dono do Cartão: </b> {nomeCartao}</p>
         <p><b>Número do Cartão: </b> {numeroCartao}</p>
-        <p><b>CVC do Cartão: </b> {cvcCartao}</p>
+        <p><b>CVC do Cartão: </b> {cvcCartao.replace(/./g, "*")}</p>
         </div>
       </ReactModal>
 
